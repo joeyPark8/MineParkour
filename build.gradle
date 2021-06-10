@@ -46,6 +46,6 @@ test {
 
 jar {
     manifest {
-        attributes "Main-Class" : "com.joey.sample.Sample"
+        attributes "Main-Class" : "com.joey.mineparkour.Main"
     }
 }

@@ -9,6 +9,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         System.out.println(this.getName() + " is activated");
 
+        this.getServer().getPluginManager().registerEvents(new ParkourEvents(), this);
+
         register();
     }
 
