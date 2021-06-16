@@ -2,3 +2,7 @@ name: MineParkour
 version: 1.2
 main: com.joey.mineparkour.Main
 depend: [CommandAPI, WorldEdit]
+
+commands:
+  down:
+    usage: /<command> <target>

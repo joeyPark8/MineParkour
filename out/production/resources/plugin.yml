@@ -1,0 +1,4 @@
+name: MineParkour
+version: 1.1
+main: com.joey.mineparkour.Main
+depend: [CommandAPI, WorldEdit]

@@ -13,15 +13,18 @@ import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.CommandPermission;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Shulker;
 
 import static com.joey.mineparkour.Parkour.*;
 
 public class ParkourCommand {
-    public void register() {
+    public static void register() {
         new CommandAPICommand("parkour")
                 .withAliases("pk")
                 .withPermission(CommandPermission.OP)
@@ -81,11 +84,20 @@ public class ParkourCommand {
                                     playingPlayers.put(player, name);
                                     spawnPoint.put(player, loc);
 
-                                    playersWithColor.put(player, Material.LIME_BANNER);
+                                    playersWithColor.put(player, PlayerColor.LIME);
 
-                                    String color = this.deleteBanner(playersWithColor.get(player).toString().toCharArray());
+                                    String colorName = colorNames.get(playersWithColor.get(player));
 
-                                    player.sendMessage(player.getName() + ": " + color);
+                                    player.sendMessage(player.getName() + ": " + ChatColor.of(playersWithColor.get(player)) + colorName);
+
+                                    Shulker shulker = (Shulker) player.getWorld().spawnEntity(player.getLocation().add(0, 3, 0), EntityType.SHULKER);
+                                    shulker.setAI(false);
+                                    shulker.setAware(false);
+                                    shulker.setGravity(false);
+                                    shulker.setCollidable(true);
+                                    shulker.setInvisible(true);
+
+                                    shulkers.put(name, shulker);
                                 }
                             });
                         })
@@ -139,6 +151,8 @@ public class ParkourCommand {
                             if (playingPlayers.containsKey(target)) {
                                 target.sendMessage("player [" + target.getName() + "] quits map [" + playingPlayers.get(target) + "]");
 
+                                target.setGameMode(GameMode.CREATIVE);
+
                                 playingPlayers.remove(target);
                             }
                             else {
@@ -147,15 +161,6 @@ public class ParkourCommand {
                         })
                 )
                 .register();
-    }
-
-    public String deleteBanner(char[] chars) {
-        String str = "";
-        int length = chars.length - 7;
-
-        for (int i = 0; i < length; i+=1) str += chars[i];
-
-        return str;
     }
 
 }

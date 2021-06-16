@@ -1,17 +1,16 @@
 package com.joey.mineparkour;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import static com.joey.mineparkour.Parkour.playingPlayers;
-import static com.joey.mineparkour.Parkour.spawnPoint;
+import static com.joey.mineparkour.Parkour.*;
 
 public class ParkourEvents implements Listener {
     @EventHandler
@@ -26,10 +25,26 @@ public class ParkourEvents implements Listener {
                 world.spawnEntity(location, EntityType.FIREWORK);
                 player.sendTitle(ChatColor.BOLD + "Congratulation!", player.getName() + " succeeded the map");
 
+                player.setGameMode(GameMode.CREATIVE);
+
                 playingPlayers.remove(player);
             }
             else if (type == Material.STONECUTTER) {
                 player.teleport(spawnPoint.get(player));
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+
+        if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            Block block = e.getClickedBlock();
+            if (block.getType().toString().contains("_BANNER")) {
+                String material = colorNames.get(playersWithColor.get(player)) + "_BANNER";
+
+                block.setType(Material.getMaterial(material));
             }
         }
     }
