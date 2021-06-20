@@ -96,6 +96,7 @@ public class ParkourCommand {
                                     shulker.setGravity(false);
                                     shulker.setCollidable(true);
                                     shulker.setInvisible(true);
+                                    shulker.setGlowing(true);
 
                                     shulkers.put(name, shulker);
                                 }
@@ -107,7 +108,14 @@ public class ParkourCommand {
                             if (playingPlayers.containsKey(player)) {
                                 player.sendMessage("player [" + player.getName() + "] quits map [" + playingPlayers.get(player) + "]");
 
+                                player.setGameMode(GameMode.CREATIVE);
+
                                 playingPlayers.remove(player);
+
+                                shulkers.forEach((name, shulker) -> {
+                                    shulkers.remove(name);
+                                    shulker.remove();
+                                });
                             }
                             else {
                                 CommandAPI.fail("player [" + player.getName() + "] isn't playing game");
