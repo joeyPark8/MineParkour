@@ -29,7 +29,7 @@ public class Main extends JavaPlugin {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) { //test command for shulker going down
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("down")) {
             Shulker shulker = shulkers.get(args[0]);
