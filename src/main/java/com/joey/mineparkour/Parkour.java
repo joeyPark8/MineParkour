@@ -1,6 +1,7 @@
 package com.joey.mineparkour;
 
 import com.sk89q.worldedit.regions.Region;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -16,6 +17,7 @@ public class Parkour {
     public static Map<Player, String> playingPlayers = new HashMap<>();
     public static Map<Player, Location> spawnPoint = new HashMap<>();
     public static Map<Player, Color> playersWithColor = new HashMap<>();
+    public static Map<Player, GameMode> playerWithGameMode = new HashMap<>();
 
     public static Map<String, Shulker> shulkers = new HashMap<>();
 

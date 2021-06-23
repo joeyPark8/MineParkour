@@ -28,9 +28,12 @@ public class ParkourEvents implements Listener {
                 world.spawnEntity(location, EntityType.FIREWORK);
                 player.sendTitle(ChatColor.BOLD + "Congratulation!", player.getName() + " succeeded the map");
 
-                player.setGameMode(GameMode.CREATIVE);
+                player.setGameMode(playerWithGameMode.get(player));
 
                 playingPlayers.remove(player);
+                spawnPoint.remove(player);
+                playersWithColor.remove(player);
+                playerWithGameMode.remove(player);
 
                 shulkers.forEach((name, shulker) -> {
                     shulkers.remove(name);

@@ -21,6 +21,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Shulker;
 
+import java.awt.*;
+
 import static com.joey.mineparkour.Parkour.*;
 
 public class ParkourCommand {
@@ -83,8 +85,14 @@ public class ParkourCommand {
                                     player.setGameMode(GameMode.SURVIVAL);
                                     playingPlayers.put(player, name);
                                     spawnPoint.put(player, loc);
+                                    playerWithGameMode.put(player, player.getGameMode());
 
-                                    playersWithColor.put(player, PlayerColor.LIME);
+                                    for (Color i : PlayerColor.getValues()) {
+                                        if (!playersWithColor.containsValue(i)) {
+                                            playersWithColor.put(player, PlayerColor.LIME);
+                                            break;
+                                        }
+                                    }
 
                                     String colorName = colorNames.get(playersWithColor.get(player));
 
@@ -97,6 +105,8 @@ public class ParkourCommand {
                                     shulker.setCollidable(true);
                                     shulker.setInvisible(true);
                                     shulker.setGlowing(true);
+                                    shulker.setInvulnerable(true);
+                                    shulker.setRotation(0, 45);
 
                                     shulkers.put(name, shulker);
                                 }
@@ -108,9 +118,12 @@ public class ParkourCommand {
                             if (playingPlayers.containsKey(player)) {
                                 player.sendMessage("player [" + player.getName() + "] quits map [" + playingPlayers.get(player) + "]");
 
-                                player.setGameMode(GameMode.CREATIVE);
+                                player.setGameMode(playerWithGameMode.get(player));
 
                                 playingPlayers.remove(player);
+                                spawnPoint.remove(player);
+                                playersWithColor.remove(player);
+                                playerWithGameMode.remove(player);
 
                                 shulkers.forEach((name, shulker) -> {
                                     shulkers.remove(name);
@@ -147,6 +160,13 @@ public class ParkourCommand {
                                     target.teleport(loc.add(0.5, 1, 0.5));
 
                                     playingPlayers.put(target, name);
+
+                                    for (Color i : PlayerColor.getValues()) {
+                                        if (!playersWithColor.containsValue(i)) {
+                                            playersWithColor.put(target, PlayerColor.LIME);
+                                            break;
+                                        }
+                                    }
                                 }
                             });
                         })

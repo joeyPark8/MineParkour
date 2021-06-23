@@ -10,6 +10,9 @@ import org.bukkit.entity.Shulker;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.joey.mineparkour.Parkour.shulkers;
 import static com.joey.mineparkour.ParkourCommand.register;
 
@@ -29,7 +32,7 @@ public class Main extends JavaPlugin {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) { //test command for shulker going down
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("down")) {
             Shulker shulker = shulkers.get(args[0]);
@@ -39,23 +42,25 @@ public class Main extends JavaPlugin {
 
             if (shulker != null) {
                 shulker.setGlowing(false);
+                List<FallingBlock> sands = new ArrayList<>();
                 new BukkitRunnable() {
                     @Override
                     public void run() {
                         shulker.teleport(shulker.getLocation().add(0, -speed, 0));
 
-                        if (lastBlock[0] != null) {
-                            lastBlock[0].remove();
-                        }
-
                         BlockData data = Material.SAND.createBlockData();
                         FallingBlock fallingBlock = player.getWorld().spawnFallingBlock(shulker.getLocation(), data);
+                        fallingBlock.setGravity(false);
+                        fallingBlock.setHurtEntities(false);
+                        fallingBlock.setInvulnerable(true);
+                        sands.add(fallingBlock);
 
-                        lastBlock[0] = fallingBlock;
+                        sands.forEach((sand) -> {
+                            sand.teleport(shulker);
+                        });
 
                         if (shulker.getLocation().getY() < 0) {
                             shulker.remove();
-                            lastBlock[0].remove();
                             cancel();
                         }
                     }
