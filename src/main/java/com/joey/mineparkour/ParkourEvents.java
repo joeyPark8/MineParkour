@@ -11,7 +11,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.material.Banner;
 
 import static com.joey.mineparkour.Parkour.*;
 
@@ -43,6 +42,8 @@ public class ParkourEvents implements Listener {
             else if (type == Material.STONECUTTER) {
                 player.teleport(spawnPoint.get(player));
             }
+
+
         }
     }
 
@@ -57,7 +58,6 @@ public class ParkourEvents implements Listener {
                 BlockFace face = block.getFace(block);
 
                 block.setType(Material.getMaterial(material));
-                ((Banner) block).setFacingDirection(face);
 
                 spawnPoint.replace(player, block.getLocation());
             }

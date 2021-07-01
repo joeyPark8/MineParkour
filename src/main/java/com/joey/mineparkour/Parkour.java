@@ -22,21 +22,21 @@ public class Parkour {
     public static Map<String, Shulker> shulkers = new HashMap<>();
 
     public static Map<Color, String> colorNames = new HashMap<>() {{
-        put(PlayerColor.RED, "RED");
-        put(PlayerColor.ORANGE, "ORANGE");
-        put(PlayerColor.YELLOW, "YELLOW");
-        put(PlayerColor.LIME, "LIME");
-        put(PlayerColor.GREEN, "GREEN");
-        put(PlayerColor.CYAN, "CYAN");
-        put(PlayerColor.LIGHT_BLUE, "LIGHT_BLUE");
-        put(PlayerColor.BLUE, "BLUE");
-        put(PlayerColor.PURPLE, "PURPLE");
-        put(PlayerColor.MAGENTA, "MAGENTA");
-        put(PlayerColor.PINK, "PINK");
-        put(PlayerColor.BROWN, "BROWN");
-        put(PlayerColor.LIGHT_GRAY, "LIGHT_GRAY");
-        put(PlayerColor.GRAY, "GRAY");
-        put(PlayerColor.BLACK, "BLACK");
+        put(ParkourColor.RED, "RED");
+        put(ParkourColor.ORANGE, "ORANGE");
+        put(ParkourColor.YELLOW, "YELLOW");
+        put(ParkourColor.LIME, "LIME");
+        put(ParkourColor.GREEN, "GREEN");
+        put(ParkourColor.CYAN, "CYAN");
+        put(ParkourColor.LIGHT_BLUE, "LIGHT_BLUE");
+        put(ParkourColor.BLUE, "BLUE");
+        put(ParkourColor.PURPLE, "PURPLE");
+        put(ParkourColor.MAGENTA, "MAGENTA");
+        put(ParkourColor.PINK, "PINK");
+        put(ParkourColor.BROWN, "BROWN");
+        put(ParkourColor.LIGHT_GRAY, "LIGHT_GRAY");
+        put(ParkourColor.GRAY, "GRAY");
+        put(ParkourColor.BLACK, "BLACK");
     }};
 
     public static void loadBlocks(Region region, World world) {
